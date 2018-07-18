@@ -16,7 +16,9 @@ import kaesdingeling.hybridmenu.data.interfaces.ViewChangeManager;
 public class DefaultViewChangeManager implements ViewChangeManager {
 	@Override
 	public List<MenuComponent<?>> init(HybridMenu hybridMenu) {
-		hybridMenu.getBreadCrumbs().clear();
+		if (hybridMenu.getBreadCrumbs() != null) {
+			hybridMenu.getBreadCrumbs().clear();
+		}
 		return new ArrayList<MenuComponent<?>>();
 	}
 	
@@ -56,7 +58,7 @@ public class DefaultViewChangeManager implements ViewChangeManager {
 	}
 	
 	public void add(HybridMenu hybridMenu, MenuComponent<?> menuComponent, List<MenuComponent<?>> menuContentList) {
-		if (hybridMenu.getBreadCrumbs().getRoot() != null  || menuContentList.size() > 0) {
+		if (hybridMenu.getBreadCrumbs() != null && (hybridMenu.getBreadCrumbs().getRoot() != null || menuContentList.size() > 0)) {
 			menuContentList.add(HMLabel.get().withIcon(hybridMenu.getConfig().getBreadcrumbSeperatorIcon()));
 		}
 		menuContentList.add(menuComponent);
@@ -86,15 +88,17 @@ public class DefaultViewChangeManager implements ViewChangeManager {
 
 	@Override
 	public void finish(HybridMenu hybridMenu, List<MenuComponent<?>> menuContentList) {
-		if (hybridMenu.getBreadCrumbs().getRoot() != null && menuContentList.size() == 2) {
-			MenuComponent<?> menuContent = menuContentList.get(1);
-			if (hybridMenu.getBreadCrumbs().getRoot().getCaption().equals(menuContent.getCaption())) {
-				menuContentList.clear();
+		if (hybridMenu.getBreadCrumbs() != null) {
+			if (hybridMenu.getBreadCrumbs().getRoot() != null && menuContentList.size() == 2) {
+				MenuComponent<?> menuContent = menuContentList.get(1);
+				if (hybridMenu.getBreadCrumbs().getRoot().getCaption().equals(menuContent.getCaption())) {
+					menuContentList.clear();
+				}
 			}
-		}
-		
-		for (MenuComponent<?> menuComponent : menuContentList) {
-			hybridMenu.getBreadCrumbs().add(menuComponent);
+			
+			for (MenuComponent<?> menuComponent : menuContentList) {
+				hybridMenu.getBreadCrumbs().add(menuComponent);
+			}
 		}
 	}
 }

@@ -5,7 +5,7 @@
 	<groupId>org.vaadin.addons</groupId>
 	<artifactId>hybridmenu</artifactId>
 	<packaging>jar</packaging>
-	<version>3.0.8</version>
+	<version>3.0.9</version>
 	<name>HybridMenu</name>
 
 	<prerequisites>
