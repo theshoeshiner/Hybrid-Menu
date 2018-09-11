@@ -1017,10 +1017,6 @@
  */
 
 /**
- *
- */
-
-/**
  * @group window
  */
 
@@ -1081,7 +1077,7 @@
  */
 
 .v-vaadin-version:after {
-	content: "8.3.0";
+	content: "8.5.1";
 }
 
 .v-widget {
@@ -1630,6 +1626,24 @@ div.v-layout.v-horizontal.v-widget {
 	display: inline-block;
 	vertical-align: top;
 }
+
+@-webkit-keyframes showNotiInit {
+		from {
+		height: 0 !important;
+	}
+		to {
+		height: auto !important;
+	}
+	}
+
+@keyframes showNotiInit {
+		from {
+		height: 0 !important;
+	}
+		to {
+		height: auto !important;
+	}
+	}
 
 .demo.v-app, .demo.v-app-loading {
 	font: 300 16px/1.55 "Open Sans", sans-serif;
@@ -12614,6 +12628,7 @@ div.v-layout.v-horizontal.v-widget {
 	width: 100% !important;
 	height: auto !important;
 	padding: 9px;
+	display: inline-flex;
 }
 
 .demo .v-colorpicker-preview-textfield {
@@ -15082,8 +15097,12 @@ div.v-layout.v-horizontal.v-widget {
 	right: 0;
 }
 
-.demo .hybridMenu .v-slot-notificationCenter .notificationCenter.open .lastNotification.show .notification {
+.demo .hybridMenu .v-slot-notificationCenter .notificationCenter.open .lastNotification {
 	right: 350px !important;
+}
+
+.demo .hybridMenu .v-slot-notificationCenter .notificationCenter.open .lastNotification .notification {
+	right: -700px;
 }
 
 .demo .hybridMenu .v-slot-notificationCenter .notificationCenter .v-slot-content {
@@ -15204,11 +15223,15 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .demo .hybridMenu .v-slot-notificationCenter .notificationCenter .lastNotification {
-	-webkit-transition: opacity 0.3s ease-in-out;
-	-moz-transition: opacity 0.3s ease-in-out;
-	-ms-transition: opacity 0.3s ease-in-out;
-	-o-transition: opacity 0.3s ease-in-out;
-	transition: opacity 0.3s ease-in-out;
+	-webkit-transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;
+	-moz-transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;
+	-ms-transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;
+	-o-transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;
+	transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;
+	height: auto !important;
+	position: fixed;
+	bottom: 8px;
+	right: 0;
 }
 
 .demo .hybridMenu .v-slot-notificationCenter .notificationCenter .lastNotification:hover {
@@ -15221,21 +15244,26 @@ div.v-layout.v-horizontal.v-widget {
 	-ms-transition: right 1s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 	-o-transition: right 1s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 	transition: right 1s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-	position: fixed;
-	right: -350px;
-	bottom: 8px;
-	z-index: 1000;
+	-webkit-animation-name: showNotiInit;
+	-webkit-animation-duration: 1s;
+	animation-name: showNotiInit;
+	animation-duration: 1s;
 	height: auto !important;
+	position: relative;
+	overflow: hidden;
+	display: block;
+	z-index: 1000;
+	right: -350px;
 	width: 330px;
+}
+
+.demo .hybridMenu .v-slot-notificationCenter .notificationCenter .lastNotification .notification.show {
+	right: 0 !important;
 }
 
 .demo .hybridMenu .v-slot-notificationCenter .notificationCenter .lastNotification.top .notification {
 	top: 45px !important;
 	bottom: unset !important;
-}
-
-.demo .hybridMenu .v-slot-notificationCenter .notificationCenter .lastNotification.show .notification {
-	right: 0 !important;
 }
 
 .demo .hybridMenu .v-slot-topMenu {

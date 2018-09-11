@@ -1,5 +1,6 @@
 package kaesdingeling.hybridmenu.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,9 @@ import kaesdingeling.hybridmenu.components.LeftMenu;
 import kaesdingeling.hybridmenu.data.interfaces.MenuComponent;
 import kaesdingeling.hybridmenu.data.interfaces.ViewChangeManager;
 
-public class DefaultViewChangeManager implements ViewChangeManager {
+public class DefaultViewChangeManager implements ViewChangeManager, Serializable {
+	private static final long serialVersionUID = -8043573562772975566L;
+
 	@Override
 	public List<MenuComponent<?>> init(HybridMenu hybridMenu) {
 		if (hybridMenu.getBreadCrumbs() != null) {

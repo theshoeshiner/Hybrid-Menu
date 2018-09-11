@@ -34,7 +34,8 @@ public class NotificationCenter extends VerticalLayout {
 
 	private VerticalLayout content = new VerticalLayout();
 	private HorizontalLayout buttonLine = new HorizontalLayout();
-	private CssLayout lastNotification = new CssLayout();
+	private CssLayout showNotificationRoot = new CssLayout();
+	private CssLayout showNotifications = new CssLayout();
 	
 	private ArrayBlockingQueue<Notification> notificationQueue = new ArrayBlockingQueue<Notification>(MenuConfig.notificationQueueMax);
 	
@@ -58,23 +59,31 @@ public class NotificationCenter extends VerticalLayout {
 				while (this.getUI() != null && this.getUI().isAttached() || !initBoot) {
 					initBoot = true;
 					
-					TimeUnit.SECONDS.sleep(1);
+					TimeUnit.MILLISECONDS.sleep(500);
 					
 					Notification noti = notificationQueue.take();
 					
 					noti.build(this);
 					
+					while (this.getUI() != null && this.getUI().isAttached() && showNotifications.getComponentCount() >= hybridMenu.getConfig().getNotificationDisplayCount()) {
+						TimeUnit.SECONDS.sleep(1);
+					}
+					
 					ui.access(() -> {
-						lastNotification.removeAllComponents();
-						lastNotification.addComponent(noti);
-						lastNotification.addStyleName("show");
+						showNotifications.addComponent(noti);
 						
 						runOneAttached(noti, () -> {
-							lastNotification.removeStyleName("show");
-						}, noti.getDisplayTime());
+							noti.addStyleName("show");
+							
+							runOneAttached(noti, () -> {
+								noti.removeStyleName("show");
+								runOneAttached(noti, () -> {
+									showNotifications.removeComponent(noti);
+									
+								}, 1000);
+							}, noti.getDisplayTime());
+						}, 100);
 					});
-					
-					TimeUnit.MILLISECONDS.sleep(noti.getDisplayTime());
 				}
 			} catch (Exception e) {
 				com.vaadin.ui.Notification vaadinNotification = new com.vaadin.ui.Notification("Notification of the NotificationCenter is no longer possible!", Type.WARNING_MESSAGE);
@@ -93,8 +102,8 @@ public class NotificationCenter extends VerticalLayout {
 		content.setMargin(false);
 		content.setStyleName("content");
 		
-		lastNotification.setHeight(0, Unit.PIXELS);
-		lastNotification.setStyleName("lastNotification");
+		showNotifications.setHeight(0, Unit.PIXELS);
+		showNotifications.setStyleName("lastNotification");
 		
 		VaadinSession.getCurrent().setAttribute(NotificationCenter.class, this);
 		
@@ -102,17 +111,19 @@ public class NotificationCenter extends VerticalLayout {
 	}
 	
 	public void build() {
-		if (hybridMenu.getConfig().getNotificationPopupPosition().equals(NotificationPosition.TOP) && !lastNotification.getStyleName().contains("top")) {
-			lastNotification.addStyleName("top");
+		if (hybridMenu.getConfig().getNotificationPopupPosition().equals(NotificationPosition.TOP) && !showNotifications.getStyleName().contains("top")) {
+			showNotifications.addStyleName("top");
 		} else {
-			lastNotification.removeStyleName("top");
+			showNotifications.removeStyleName("top");
 		}
-		if (hybridMenu.getConfig().getNotificationButtonLinePosition().equals(NotificationPosition.TOP) && !lastNotification.getStyleName().contains("top")) {
+		if (hybridMenu.getConfig().getNotificationButtonLinePosition().equals(NotificationPosition.TOP) && !showNotifications.getStyleName().contains("top")) {
 			addComponents(buttonLine, content);
 		} else {
 			addComponents(content, buttonLine);
 		}
-		addComponent(lastNotification);
+		showNotificationRoot.setHeight(0, Unit.PIXELS);
+		showNotificationRoot.addComponent(showNotifications);
+		addComponent(showNotificationRoot);
 		setExpandRatio(content, 1);
 	}
 	
@@ -135,10 +146,11 @@ public class NotificationCenter extends VerticalLayout {
 		if (isOpen()) {
 			notification.makeAsReaded();
 		}
+
+		Notification notificationClone = notification.clone();
+		
 		content.addComponentAsFirst(notification.build(this));
 		updateToolTip();
-		
-		Notification notificationClone = notification.clone();
 		
 		if (!showDescriptionOnPopup) {
 			notificationClone.withContent("");

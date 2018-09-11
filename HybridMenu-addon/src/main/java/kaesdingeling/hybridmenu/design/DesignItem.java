@@ -1,8 +1,12 @@
 package kaesdingeling.hybridmenu.design;
 
+import java.io.Serializable;
+
 import kaesdingeling.hybridmenu.data.enums.MenuDesign;
 
-public class DesignItem {
+public class DesignItem implements Serializable {
+	private static final long serialVersionUID = -5177315993522293788L;
+
 	private MenuDesign menuDesign = MenuDesign.DARK;
 	
 	/* Colors */

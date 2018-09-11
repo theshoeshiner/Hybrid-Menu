@@ -1,8 +1,12 @@
 package kaesdingeling.hybridmenu.design;
 
+import java.io.Serializable;
+
 import com.vaadin.shared.ui.colorpicker.Color;
 
-public class DesignColor {
+public class DesignColor implements Serializable {
+	private static final long serialVersionUID = -4790622734682285034L;
+	
 	private int red = 255;
     private int green = 255;
     private int blue = 255;

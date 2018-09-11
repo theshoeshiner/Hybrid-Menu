@@ -4,6 +4,22 @@ $hm-white-color: rgb(245, 245, 245);
 
 @import "hybrid-menu-utils";
 
+@-webkit-keyframes showNotiInit {
+	from {
+		height: 0 !important;
+	} to {
+		height: auto !important;
+	}
+}
+
+@keyframes showNotiInit {
+	from {
+		height: 0 !important;
+	} to {
+		height: auto !important;
+	}
+}
+
 @mixin hybrid-menu {
     .hybridMenu {
         position: relative;
@@ -26,8 +42,12 @@ $hm-white-color: rgb(245, 245, 245);
                 &.open {
                     right: 0;
                     
-                    .lastNotification.show .notification {
+                    .lastNotification {
                         right: 350px !important;
+                        
+                        .notification {
+							right: -700px;
+	                    }
                     }
                 }
                 
@@ -133,7 +153,12 @@ $hm-white-color: rgb(245, 245, 245);
                 }
                 
                 .lastNotification {
-                    @include hmTransition(opacity 0.3s ease-in-out);
+                	@include hmTransition(opacity 0.3s ease-in-out, height 0.3s ease-in-out, right 0.3s ease-in-out);
+                    
+                    height: auto !important;
+					position: fixed;
+					bottom: 8px;
+					right: 0;
                     
                     &:hover {
                         opacity: 0.2;
@@ -145,18 +170,26 @@ $hm-white-color: rgb(245, 245, 245);
                         -ms-transition: right 1s cubic-bezier(0.18, 0.89, 0.32, 1.28);
                         -o-transition: right 1s cubic-bezier(0.18, 0.89, 0.32, 1.28);
                         transition: right 1s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-                        @include hmPos(fixed, null, -350px, 8px, null, 1000);
-                        height: auto !important;
-                        width: 330px;
+                        -webkit-animation-name: showNotiInit;
+                        -webkit-animation-duration: 1s;
+                        animation-name: showNotiInit;
+                        animation-duration: 1s;
+						height: auto !important;
+                        position: relative;
+						overflow: hidden;
+						display: block;
+						z-index: 1000;
+						right: -350px;
+						width: 330px;
+						
+						&.show {
+                        	right: 0 !important;
+						}
                     }
                     
                     &.top .notification {
                         top: 45px !important;
                         bottom: unset !important;
-                    }
-                    
-                    &.show .notification {
-                        right: 0 !important;
                     }
                 }
             }

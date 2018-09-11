@@ -1,5 +1,7 @@
 package kaesdingeling.hybridmenu.data;
 
+import java.io.Serializable;
+
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.FontIcon;
 import com.vaadin.server.Resource;
@@ -8,7 +10,9 @@ import kaesdingeling.hybridmenu.data.enums.NotificationPosition;
 import kaesdingeling.hybridmenu.design.DesignItem;
 
 @SuppressWarnings("deprecation")
-public class MenuConfig {
+public class MenuConfig implements Serializable {
+	private static final long serialVersionUID = -9167126709540955312L;
+
 	public static MenuConfig get() {
 		return new MenuConfig();
 	}
@@ -26,7 +30,7 @@ public class MenuConfig {
 	private NotificationPosition notificationButtonLinePosition = NotificationPosition.BOTTOM;
 	
 	private long notificationDisplayTime = 5000;
-	
+	private int notificationDisplayCount = 3;
 	private int notificationPopupMaxContentLength = 100;
 	
 	private Resource breadcrumbSeperatorIcon = FontAwesome.ANGLE_RIGHT;
@@ -95,6 +99,13 @@ public class MenuConfig {
 	}
 	public MenuConfig setNotificationDisplayTime(long notificationDisplayTime) {
 		this.notificationDisplayTime = notificationDisplayTime;
+		return this;
+	}
+	public int getNotificationDisplayCount() {
+		return notificationDisplayCount;
+	}
+	public MenuConfig withNotificationDisplayCount(int notificationDisplayCount) {
+		this.notificationDisplayCount = notificationDisplayCount;
 		return this;
 	}
 	public int getNotificationPopupMaxContentLength() {

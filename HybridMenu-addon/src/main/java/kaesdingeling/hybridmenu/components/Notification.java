@@ -2,6 +2,7 @@ package kaesdingeling.hybridmenu.components;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.SerializationUtils;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import com.vaadin.server.Resource;
@@ -16,8 +17,6 @@ import kaesdingeling.hybridmenu.data.MenuConfig;
 public class Notification extends CssLayout {
 	private static final long serialVersionUID = 3572068667525046443L;
 	
-	private MenuConfig menuConfig = VaadinSession.getCurrent().getAttribute(MenuConfig.class);
-	
 	private String caption = "";
 	
 	private Label title = new Label("", ContentMode.HTML);
@@ -26,7 +25,7 @@ public class Notification extends CssLayout {
 	
 	private long created = 0L;
 	private long removeDisplayOffset = 0L;
-	private long displayTime = menuConfig.getNotificationDisplayTime();
+	private long displayTime = VaadinSession.getCurrent().getAttribute(MenuConfig.class).getNotificationDisplayTime();
 	
 	private boolean readed = false;
 	
@@ -39,7 +38,7 @@ public class Notification extends CssLayout {
 	}
 	
 	public Notification withCloseable() {
-		removeButton = new Button(menuConfig.getNotificationRemoveIcon());
+		removeButton = new Button(VaadinSession.getCurrent().getAttribute(MenuConfig.class).getNotificationRemoveIcon());
 		removeButton.setPrimaryStyleName("button");
 		return this;
 	}
@@ -125,14 +124,6 @@ public class Notification extends CssLayout {
 	
 	@Override
 	public Notification clone() {
-		Notification notification = new Notification();
-		notification.withAutoRemove(removeDisplayOffset);
-		notification.withContent(content.getValue());
-		notification.withTitle(title.getValue());
-		notification.withDisplayTime(displayTime);
-		notification.withIcon(title.getIcon());
-		notification.created = created;
-		notification.caption = caption;
-		return notification;
+		return SerializationUtils.clone(this);
 	}
 }
