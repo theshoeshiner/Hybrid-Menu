@@ -3,9 +3,11 @@ package kaesdingeling.hybridmenu.components;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.vaadin.navigator.View;
 import com.vaadin.server.Resource;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 import kaesdingeling.hybridmenu.data.MenuConfig;
@@ -17,6 +19,7 @@ public class HMSubMenu extends VerticalLayout implements MenuComponent<VerticalL
 	
 	private HMButton button = new HMButton("");
 	private VerticalLayout content = new VerticalLayout();
+	private List<String> subViewList = new ArrayList<String>();
 	
 	public static HMSubMenu get() {
 		return new HMSubMenu("");
@@ -44,6 +47,20 @@ public class HMSubMenu extends VerticalLayout implements MenuComponent<VerticalL
 		super.setMargin(false);
 		super.setSpacing(false);
 		super.addComponents(button, content);
+	}
+	
+	public List<String> getdSubViewList() {
+		return subViewList;
+	}
+	
+	public HMSubMenu addSubView(Class<? extends View> viewClass) {
+		UI.getCurrent().getNavigator().addView(viewClass.getSimpleName(), viewClass);
+		return addSubView(viewClass.getSimpleName());
+	}
+	
+	public HMSubMenu addSubView(String view) {
+		subViewList.add(view);
+		return this;
 	}
 	
 	@Override

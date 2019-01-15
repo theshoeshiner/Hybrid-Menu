@@ -31,6 +31,7 @@ import kaesdingeling.hybridmenu.components.TopMenu;
 import kaesdingeling.hybridmenu.data.MenuConfig;
 import kaesdingeling.hybridmenu.demo.page.GroupPage;
 import kaesdingeling.hybridmenu.demo.page.HomePage;
+import kaesdingeling.hybridmenu.demo.page.MemberItemPage;
 import kaesdingeling.hybridmenu.demo.page.MemberPage;
 import kaesdingeling.hybridmenu.demo.page.NotificationBuilderPage;
 import kaesdingeling.hybridmenu.demo.page.SettingsPage;
@@ -126,6 +127,7 @@ public class DemoUI extends UI implements DetachListener {
 
 		HMSubMenu memberList = leftMenu.add(HMSubMenu.get()
 				.withCaption("Member")
+				.addSubView(MemberItemPage.class)
 				.withIcon(VaadinIcons.USERS));
 		
 		memberList.add(HMButton.get()

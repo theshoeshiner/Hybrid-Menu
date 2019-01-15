@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 
 import kaesdingeling.hybridmenu.HybridMenu;
@@ -43,7 +45,7 @@ public class DefaultViewChangeManager implements ViewChangeManager, Serializable
 				
 				if (menuComponent instanceof HMSubMenu) {
 					HMSubMenu hmSubMenu = (HMSubMenu) menuComponent;
-					if (foundActiveButton) {
+					if (foundActiveButton || checkSubView(hmSubMenu, event)) {
 						HMButton breadCrumButton = HMButton.get().withCaption(hmSubMenu.getCaption());
 						breadCrumButton.setToolTip(hmSubMenu.getButton().getToolTip());
 						breadCrumButton.removeToolTip();
@@ -67,26 +69,40 @@ public class DefaultViewChangeManager implements ViewChangeManager, Serializable
 		menuContentList.add(menuComponent);
 	}
 	
-	public boolean checkButton(HMButton button, ViewChangeEvent event) {
-		boolean check = false;
-		
-		if (button.getNavigateTo() != null) {
-			if (button.getNavigateTo().startsWith(event.getNewView().getClass().getSimpleName())) {
-				if (button.getNavigateTo().equals(event.getViewName())) {
-					check = true;
-				} else if (button.getNavigateTo().equals(event.getViewName() + "/" + event.getParameters())) {
-					check = true;
-				}
-			} else {
-				if (button.getNavigateTo().equals(event.getViewName())) {
-					check = true;
-				}
+	public boolean checkSubView(HMSubMenu subMenu, ViewChangeEvent event) {
+		for (String view : subMenu.getdSubViewList()) {
+			if (checkView(view, event)) {
+				return true;
 			}
 		}
+		
+		return false;
+	}
+	
+	public boolean checkButton(HMButton button, ViewChangeEvent event) {
+		boolean check = checkView(button.getNavigateTo(), event);
 		
 		button.setActive(check);
 		
 		return check;
+	}
+	
+	public boolean checkView(String navigateTo, ViewChangeEvent event) {
+		if (StringUtils.isNotEmpty(navigateTo)) {
+			if (navigateTo.startsWith(event.getNewView().getClass().getSimpleName())) {
+				if (navigateTo.equals(event.getViewName())) {
+					return true;
+				} else if (navigateTo.equals(event.getViewName() + "/" + event.getParameters())) {
+					return true;
+				}
+			} else {
+				if (navigateTo.equals(event.getViewName())) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 
 	@Override
