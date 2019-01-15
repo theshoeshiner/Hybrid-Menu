@@ -3,9 +3,7 @@
 .settings/
 **.class
 *.iml
-/HybridMenu-addon/bin/
-/HybridMenu-demo/bin/
 **.css
-/HybridMenu-addon/target/
-/HybridMenu-demo/target/
+**/bin
+**/target
 /.idea/
