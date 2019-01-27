@@ -3,7 +3,6 @@
 .settings/
 **.class
 *.iml
-**.css
 **/bin
 **/target
 /.idea/
