@@ -1,0 +1,41 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="../../bower_components/vaadin-themable-mixin/vaadin-themable-mixin.html" />
+<link rel="import" href="../../bower_components/vaadin-element-mixin/vaadin-element-mixin.html" />
+<link rel="import" href="../../bower_components/vaadin-ordered-layout/src/vaadin-vertical-layout.html">
+<link rel="import" href="LeftMenu.html" />
+
+<dom-module id="hybrid-menu">
+	<template>
+		<style>
+			:host {
+				background: var(--lumo-base-color);
+				position: relative;
+				display: block;
+				height: 100%;
+				width: 100%;
+			}
+		</style>
+		
+		<left-menu id="left-menu" />
+		<vaadin-vertical-layout id="test" />
+	</template>
+	
+	<script>
+		(function() {
+			class HybridMenuElement extends Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element)) {
+				static get is() {
+					return 'hybrid-menu';
+				}
+				
+				static get version() {
+					return '1.0.0';
+				}
+			}
+			
+			customElements.define(HybridMenuElement.is, HybridMenuElement);
+			
+			window.Vaadin = window.Vaadin || {};
+			Vaadin.HybridMenuElement = HybridMenuElement;
+		})();
+	</script>
+</dom-module>

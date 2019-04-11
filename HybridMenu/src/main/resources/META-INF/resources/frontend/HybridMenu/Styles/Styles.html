@@ -1,0 +1,53 @@
+<link rel="import" href="../../bower_components/polymer/lib/elements/custom-style.html" />
+
+<custom-style>
+    <dom-module id="vaadin-button-repair-styles" theme-for="vaadin-button">
+        <template>
+            <style>
+            	:host(.leftMenuItem) .vaadin-button-container {
+            		justify-content: left !important;
+		    		text-align: left !important;
+            	}
+            	
+            	:host(.leftMenuItem) .vaadin-button-container div[part="suffix"] {
+            		-webkit-transition: transform 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
+					-moz-transition: transform 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
+					-ms-transition: transform 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
+					-o-transition: transform 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
+					transition: transform 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
+					-webkit-transform: rotate(0deg);
+					-moz-transform: rotate(0deg);
+					-ms-transform: rotate(0deg);
+					-o-transform: rotate(0deg);
+					transform: rotate(0deg);
+	            	position: absolute;
+					height: 24px;
+					width: 24px;
+					right: 5px;
+					margin: 0;
+            	}
+            	
+            	:host(.leftMenuItem.active) .vaadin-button-container div[part="suffix"] {
+	            	-webkit-transform: rotate(180deg);
+					-moz-transform: rotate(180deg);
+					-ms-transform: rotate(180deg);
+					-o-transform: rotate(180deg);
+					transform: rotate(180deg);
+					padding-bottom: 3px;
+            	}
+            	
+            	:host(.hmButtonIconOnly) {
+            		min-width: 36px !important;
+            	}
+            	
+            	:host(.topMenuItem) .vaadin-button-container div[part="prefix"], :host(.hmButtonIconOnly) .vaadin-button-container div[part="prefix"] {
+            		margin: 0 !important;
+            	}
+            	
+            	:host(.hmButtonIconOnly) .vaadin-button-container:before , :host(.hmButtonIconOnly) div[part="label"], :host(.hmButtonIconOnly) div[part="suffix"] {
+            		display: none !important;
+            	}
+            </style>
+        </template>
+    </dom-module>
+</custom-style>

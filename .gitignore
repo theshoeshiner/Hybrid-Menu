@@ -1,8 +1,12 @@
-# Created by .ignore support plugin (hsz.mobi)
-.classpath
-.settings/
-**.class
+*.class
 *.iml
-**/bin
-**/target
-/.idea/
+/HM-Demo/bin/*
+/HM-Demo/target/*
+/HM-Demo/.settings/*
+/HM-Demo/.classpath
+/HM-Demo/.project
+/HybridMenu/bin/*
+/HybridMenu/target/*
+/HybridMenu/.settings/*
+/HybridMenu/.classpath
+/HybridMenu/.project

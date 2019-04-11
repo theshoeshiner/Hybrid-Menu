@@ -1,0 +1,441 @@
+/* General */
+.hybridMenu {
+	background: var(--lumo-base-color);
+	position: relative;
+    overflow: hidden;
+	z-index: 1;
+}
+
+.hybridMenu .paddingTopContent {
+	padding-top: 50px !important;
+}
+
+.hmContentBox {
+    overflow: auto;
+    padding-top: 0 !important;
+}
+
+.hmNotificationCenter vaadin-button, .hmLeftMenu vaadin-button, .hmTopMenu vaadin-button {
+    border-radius: 0;
+    cursor: pointer;
+}
+
+
+/* Top Menu */
+.hmTopMenu {
+	position: fixed;
+	top: 0;
+	right: 100px;
+	z-index: 1000;
+}
+
+.hmTopMenu vaadin-text-field {
+    -webkit-transition: width 0.3s ease-in-out, border-top-width 0.3s ease-in-out;
+	-moz-transition: width 0.3s ease-in-out, border-top-width 0.3s ease-in-out;
+	-ms-transition: width 0.3s ease-in-out, border-top-width 0.3s ease-in-out;
+	-o-transition: width 0.3s ease-in-out, border-top-width 0.3s ease-in-out;
+	transition: width 0.3s ease-in-out, border-top-width 0.3s ease-in-out;
+}
+
+.hmTopMenu vaadin-text-field, .hmTopMenu vaadin-button {
+    border-top: 0 solid var(--lumo-primary-color);
+    border-radius: 0;
+    min-width: 35px;
+    margin: 0 4px;
+    height: 40px;
+    width: 35px;
+    padding: 0;
+}
+
+.hmTopMenu vaadin-text-field.active, .hmTopMenu vaadin-button.active {
+    border-top-width: 3px;
+    height: 43px;
+}
+
+.hmTopMenu vaadin-text-field:hover, .hmTopMenu vaadin-button:hover {
+    border-top-width: 5px;
+    height: 45px;
+}
+
+.hmTopMenu .vaadin-text-field {
+    border-radius: 0;
+}
+
+.hmTopMenu .vaadin-text-field iron-icon {
+	color: var(--lumo-contrast-90pct);
+}
+
+[theme~="dark"] .hmTopMenu .vaadin-text-field iron-icon {
+	color: var(--lumo-tint-90pct);
+}
+
+.hmTopMenu vaadin-text-field:hover {
+    width: 180px !important;
+}
+
+.hmTopMenu vaadin-text-field input {
+    -webkit-transition: background 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	-moz-transition: background 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	-ms-transition: background 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	-o-transition: background 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	transition: background 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.hmTopMenu vaadin-text-field:hover input {
+    opacity: 1;
+}
+
+.hmTopMenu vaadin-button {
+	background: var(--lumo-shade-10pct);
+    -webkit-transition: height 0.3s ease-in-out, border-top-width 0.3s ease-in-out;
+	-moz-transition: height 0.3s ease-in-out, border-top-width 0.3s ease-in-out;
+	-ms-transition: height 0.3s ease-in-out, border-top-width 0.3s ease-in-out;
+	-o-transition: height 0.3s ease-in-out, border-top-width 0.3s ease-in-out;
+	transition: height 0.3s ease-in-out, border-top-width 0.3s ease-in-out;
+	color: var(--lumo-contrast-90pct);
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+[theme~="dark"] .hmTopMenu vaadin-button {
+	background: var(--lumo-tint-10pct);
+	color: var(--lumo-tint-90pct);
+}
+
+.hmTopMenu .vaadin-button {
+    -webkit-transition: background 0.3s ease-in-out;
+	-moz-transition: background 0.3s ease-in-out;
+	-ms-transition: background 0.3s ease-in-out;
+	-o-transition: background 0.3s ease-in-out;
+	transition: background 0.3s ease-in-out;
+}
+
+.hmTopMenu vaadin-button .toolTip {
+	color: var(--lumo-primary-contrast-color);
+	background: var(--lumo-primary-color);
+    padding: 1px 4px 3px;
+    border-radius: 3px;
+    position: absolute;
+	font-size: 13px;
+    left: 25px;
+    top: 30px;
+}
+
+
+/* Left Menu */
+.hmLeftMenu {
+	background: var(--lumo-shade-10pct);
+    -webkit-transition: width 0.5s ease-in-out, min-width 0.5s ease-in-out, max-width 0.5s ease-in-out;
+	-moz-transition: width 0.5s ease-in-out, min-width 0.5s ease-in-out, max-width 0.5s ease-in-out;
+	-ms-transition: width 0.5s ease-in-out, min-width 0.5s ease-in-out, max-width 0.5s ease-in-out;
+	-o-transition: width 0.5s ease-in-out, min-width 0.5s ease-in-out, max-width 0.5s ease-in-out;
+	transition: width 0.5s ease-in-out, min-width 0.5s ease-in-out, max-width 0.5s ease-in-out;
+    border-radius: 1px solid;
+    overflow-y: visible;
+    overflow-x: auto;
+}
+
+.hmLeftMenu vaadin-button {
+	background: var(--lumo-tint-20pct);
+    -webkit-transition: background 0.3s ease-in-out, border-left-color 0.3s ease-in-out, border-left-width 0.3s ease-in-out;
+	-moz-transition: background 0.3s ease-in-out, border-left-color 0.3s ease-in-out, border-left-width 0.3s ease-in-out;
+	-ms-transition: background 0.3s ease-in-out, border-left-color 0.3s ease-in-out, border-left-width 0.3s ease-in-out;
+	-o-transition: background 0.3s ease-in-out, border-left-color 0.3s ease-in-out, border-left-width 0.3s ease-in-out;
+	transition: background 0.3s ease-in-out, border-left-color 0.3s ease-in-out, border-left-width 0.3s ease-in-out;
+    padding: 8px 0 8px 10px !important;
+	color: var(--lumo-contrast-90pct);
+    border-left: 0 solid var(--lumo-primary-color);
+    height: 45px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+[theme~="dark"] .hmLeftMenu vaadin-button {
+	background: var(--lumo-tint-5pct);
+	color: var(--lumo-tint-90pct);
+}
+
+.hmLeftMenu vaadin-button .toolTip {
+    -webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	transform: translateY(-50%);
+    padding: 1px 4px 3px;
+    border-radius: 3px;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+}
+
+.hmLeftMenu vaadin-button.active {
+	background: var(--lumo-shade-5pct);
+	border-left-color: var(--lumo-success-color);
+    border-left-width: 3px;
+}
+
+[theme~="dark"] .hmLeftMenu vaadin-button.active {
+	background: var(--lumo-tint-10pct);
+}
+
+.hmLeftMenu vaadin-button:hover {
+    border-left-width: 5px;
+}
+
+.hmLeftMenu vaadin-vertical-layout.subMenu {
+    width: 100%;
+    margin: 0;
+}
+
+.hmLeftMenu vaadin-vertical-layout.subMenu > vaadin-vertical-layout {
+    -webkit-transition: max-height 0.5s ease-in-out;
+	-moz-transition: max-height 0.5s ease-in-out;
+	-ms-transition: max-height 0.5s ease-in-out;
+	-o-transition: max-height 0.5s ease-in-out;
+	transition: max-height 0.5s ease-in-out;
+	width: calc(100% - 24px) !important;
+	border-left: 1px solid var(--lumo-shade-10pct);
+	position: relative;
+	margin-left: 24px;
+	overflow: hidden;
+	display: block;
+	max-height: 0;
+}
+
+[theme~="dark"] .hmLeftMenu vaadin-vertical-layout.subMenu > vaadin-vertical-layout {
+	border-left: 1px solid var(--lumo-tint-30pct);
+}
+
+.hmLeftMenu vaadin-vertical-layout.subMenu.open > vaadin-vertical-layout {
+	max-height: 500px;
+}
+
+.hmLeftMenu vaadin-vertical-layout.subMenu.open > vaadin-button div.vaadin-button[part="label"] iron-icon.buttonOtherIcon {
+    -webkit-transform: rotate(-180deg);
+	-moz-transform: rotate(-180deg);
+	-ms-transform: rotate(-180deg);
+	-o-transform: rotate(-180deg);
+	transform: rotate(-180deg);
+}
+
+.hmLeftMenu > label {
+    border-bottom: 1px solid var(--lumo-shade-30pct);
+    text-align: center;
+    position: relative;
+    font-size: 17px;
+    padding: 8px 0;
+    width: 100%;
+    margin: 0;
+}
+
+[theme~="dark"] .hmLeftMenu > label {
+	border-bottom-color: var(--lumo-tint-30pct);
+}
+
+.hmLeftMenu > label img {
+    vertical-align: middle;
+    margin-right: 5px;
+    height: 32px;
+    width: 32px;
+}
+
+.hmLeftMenu > label > p {
+    vertical-align: middle;
+    display: inline-block;
+    margin: 0 0 0 5px;
+}
+
+
+/* Notification Center */
+.hmNotificationCenter {
+	background: var(--lumo-shade-50pct);
+    -webkit-transition: right 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+	-moz-transition: right 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+	-ms-transition: right 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+	-o-transition: right 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+	transition: right 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+    width: 350px !important;
+    position: fixed;
+    z-index: 100000;
+    right: -350px;
+    top: 0;
+}
+
+.hmNotificationCenter vaadin-button {
+	background: var(--lumo-tint-50pct);
+	color: var(--lumo-contrast-90pct);
+}
+
+[theme~="dark"] .hmNotificationCenter vaadin-button {
+	background: var(--lumo-shade-20pct);
+	color: var(--lumo-tint-90pct);
+}
+
+.hmNotificationCenter .notification {
+	box-shadow: 0px 0px 2px var(--lumo-shade-70pct);
+	background: var(--lumo-tint-50pct);
+    width: calc(100% - 36px);
+	position: relative;
+	margin: 8px 8px 0;
+	display: block;
+	padding: 10px;
+}
+
+[theme~="dark"] .hmNotificationCenter .notification {
+	box-shadow: 0px 0px 2px var(--lumo-tint-70pct);
+	background: var(--lumo-shade-50pct);
+}
+
+.hmNotificationCenter .notification > iron-icon {
+    height: calc(100% - 16px);
+    border-right: 1px solid;
+    vertical-align: middle;
+    position: absolute;
+    padding: 0 8px 0 0;
+    font-size: 28px;
+    display: block;
+    margin: 8px;
+    width: 34px;
+    left: 0;
+    top: 0;
+}
+
+.hmNotificationCenter .notification.withIcon .content, .hmNotificationCenter .notification.withIcon .title {
+    padding-left: 50px;
+}
+
+.hmNotificationCenter .notification .title {
+    line-height: 12px;
+    font-size: 18px;
+    height: 24px;
+}
+
+.hmNotificationCenter .notification .timeAgo {
+    margin: 4px 0 0 8px;
+    position: absolute;
+    font-size: 10px;
+}
+
+.hmNotificationCenter .notification .timeAgo:before {
+    display: inline-block;
+    margin: 0 7px 1px 0;
+    border-radius: 50%;
+    content: '';
+    height: 4px;
+    width: 4px;
+}
+
+.hmNotificationCenter .notification .content {
+    font-size: 14px;
+    display: block;
+}
+
+.hmNotificationCenter .notification vaadin-button {
+	background: transparent;
+    -webkit-transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+	-moz-transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+	-ms-transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+	-o-transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+	transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+    position: absolute;
+    margin: 0;
+    right: 0;
+    top: 0;
+}
+
+.hmNotificationCenter .notification vaadin-button:hover {
+	background: var(--lumo-error-color);
+	color: var(--lumo-error-contrast-color);
+}
+
+.hmNotificationCenter .footer {
+    text-align: center;
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.hmNotificationCenter .footer vaadin-button {
+    -webkit-transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+	-moz-transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+	-ms-transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+	-o-transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+	transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+    display: inline-block;
+    position: relative;
+    margin: 5px;
+}
+
+.hmNotificationCenter .lastNotification {
+    -webkit-transition: right 1s cubic-bezier(0.79, 0.14, 0.15, 0.86), opacity 0.3s ease-in-out;
+	-moz-transition: right 1s cubic-bezier(0.79, 0.14, 0.15, 0.86), opacity 0.3s ease-in-out;
+	-ms-transition: right 1s cubic-bezier(0.79, 0.14, 0.15, 0.86), opacity 0.3s ease-in-out;
+	-o-transition: right 1s cubic-bezier(0.79, 0.14, 0.15, 0.86), opacity 0.3s ease-in-out;
+	transition: right 1s cubic-bezier(0.79, 0.14, 0.15, 0.86), opacity 0.3s ease-in-out;
+    height: auto !important;
+    pointer-events: none;
+    position: absolute;
+    margin: 10px 5px;
+    right: -350px;
+    opacity: 0;
+    bottom: 0;
+}
+
+.hmNotificationCenter .lastNotification.top {
+    margin-top: 2px;
+    bottom: unset;
+    top: 0;
+}
+
+.hmNotificationCenter .lastNotification.show {
+    pointer-events: auto;
+    right: 350px;
+    opacity: 1;
+}
+
+.hmNotificationCenter .lastNotification.show:hover {
+    opacity: 0.1;
+}
+
+.hmNotificationCenter .lastNotification .notification {
+    width: 300px;
+}
+
+
+/* breadcrumbs */
+.hmBreadcrumbs {
+    padding: 3px 20px;
+}
+
+.hmBreadcrumbs vaadin-button {
+	color: var(--lumo-contrast-90pct);
+    background: transparent;
+}
+
+[theme~="dark"] .hmBreadcrumbs vaadin-button {
+	color: var(--lumo-tint-90pct);
+}
+
+.hmBreadcrumbs vaadin-button:not(.clickable):before, .hmBreadcrumbs vaadin-button:not(.clickable):hover:before {
+    background: transparent !important;
+}
+
+.hmBreadcrumbs vaadin-button.clickable {
+    cursor: pointer;
+}
+
+.hmBreadcrumbs label > iron-icon {
+    height: 100% !important;
+}
+
+
+/* Others */
+.hmLeftMenu.minimal {
+    
+}
+
+.hmNotificationCenter.open {
+    right: 0;
+}

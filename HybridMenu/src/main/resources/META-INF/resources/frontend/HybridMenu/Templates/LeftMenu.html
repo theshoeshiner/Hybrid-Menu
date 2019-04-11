@@ -1,0 +1,39 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html" />
+<link rel="import" href="../../bower_components/vaadin-themable-mixin/vaadin-themable-mixin.html" />
+<link rel="import" href="../../bower_components/vaadin-element-mixin/vaadin-element-mixin.html" />
+
+<dom-module id="left-menu">
+	<template>
+		<style>
+			:host {
+				background: var(--lumo-shade-10pct);
+				position: relative;
+				height: 100%;
+				width: 250px;
+				display: block;
+			}
+		</style>
+		
+		<slot></slot>
+		
+	</template>
+	
+	<script>
+		(function() {
+			class LeftMenuElement extends Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element)) {
+				static get is() {
+					return 'left-menu';
+				}
+				
+				static get version() {
+					return '1.0.0';
+				}
+			}
+			
+			customElements.define(LeftMenuElement.is, LeftMenuElement);
+			
+			window.Vaadin = window.Vaadin || {};
+			Vaadin.LeftMenuElement = LeftMenuElement;
+		})();
+	</script>
+</dom-module>
