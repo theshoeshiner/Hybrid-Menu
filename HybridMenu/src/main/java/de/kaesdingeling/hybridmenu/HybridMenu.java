@@ -60,6 +60,8 @@ public abstract class HybridMenu extends VerticalLayout implements RouterLayout,
 		setPadding(false);
 		setSpacing(false);
 		
+		VaadinSession.getCurrent().setAttribute(MenuConfig.class, MenuConfig.builder().build());
+		
 		boolean build = init(VaadinSession.getCurrent(), UI.getCurrent());
 		
 		if (build) {

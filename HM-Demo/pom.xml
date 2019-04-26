@@ -7,7 +7,7 @@
 	<groupId>de.kaesdingeling</groupId>
 	<artifactId>HM-Demo</artifactId>
 	<packaging>war</packaging>
-	<version>3.0.16.vaadin10</version>
+	<version>3.0.17.vaadin10</version>
 	<name>HybridMenu Add-on Demo</name>
 
 	<prerequisites>
@@ -26,7 +26,7 @@
 		<javax.servlet.api.version>3.1.0</javax.servlet.api.version>
 
 		<!-- Vaadin -->
-		<vaadin.version>10.0.13</vaadin.version>
+		<vaadin.version>13.0.3</vaadin.version>
 
 		<!-- Addons -->
 		<paperslider.version>1.0.0</paperslider.version>
