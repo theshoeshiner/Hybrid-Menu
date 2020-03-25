@@ -1,6 +1,7 @@
 /* Colors */
 $hm-dark-color: rgb(66, 66, 66);
 $hm-white-color: rgb(245, 245, 245);
+$hm-leftmenu-width:225px;
 
 @import "hybrid-menu-utils";
 
@@ -217,10 +218,10 @@ $hm-white-color: rgb(245, 245, 245);
                     input.HMTextField {
                         @include hmTransition(width 0.3s ease-in-out);
                         display: inline-block;
-                        box-shadow: none !important;
-                        outline: unset !important;
-                        border-radius: 0 !important;
-                        border: none !important;
+                        box-shadow: none ;
+                        outline: unset ;
+                        border-radius: 0 ;
+                        border: none ;
                         @include hmSize(0, 30px);
                         margin: 6px 0 0 5px;
                         padding: 5px;
@@ -277,16 +278,16 @@ $hm-white-color: rgb(245, 245, 245);
         .rootContent {
             & > .v-expand {
                 @include hmTransition(padding-left 0.3s ease-in-out);
-                padding-left: 250px !important;
+                padding-left: $hm-leftmenu-width !important;
                 
                 /* Left Menu */
                 .v-slot-leftMenu {
                     @include hmTransition(margin-left 0.3s ease-in-out);
-                    margin-left: -250px !important;
+                    margin-left: -$hm-leftmenu-width !important;
                     
                     .leftMenu {
                         @include hmTransition(width 0.3s ease-in-out);
-                        width: 250px !important;
+                        width: $hm-leftmenu-width !important;
                         
                         & > .v-expand > .v-slot {
                             height: auto !important;

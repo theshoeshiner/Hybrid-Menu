@@ -1,12 +1,16 @@
 package kaesdingeling.hybridmenu.components;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.server.Resource;
+import com.vaadin.shared.Registration;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 
 import kaesdingeling.hybridmenu.data.interfaces.MenuComponent;
 
@@ -15,6 +19,12 @@ public class HMButton extends Button implements MenuComponent<HMButton> {
 	
 	private String toolTip = null;
 	private String navigateTo = null;
+	private String navigateParameters = null;
+	private ClickListener clickListener = null;
+	private Registration clickListenerRegistration;
+	private List<MenuComponent<?>> subComponentList = new ArrayList<>();
+	private VerticalLayout content = new VerticalLayout();
+	private Boolean root;
 	
 	public static HMButton get() {
 		return new HMButton("");
@@ -116,8 +126,15 @@ public class HMButton extends Button implements MenuComponent<HMButton> {
 		return this;
 	}
 	
+	public HMButton asRoot(boolean r) {
+		this.root = r;
+		return this;
+	}
+	
 	public HMButton withClickListener(ClickListener clickListener) {
-		super.addClickListener(clickListener);
+		removeClickListener();
+		clickListenerRegistration = super.addClickListener(clickListener);
+		this.clickListener = clickListener;
 		return this;
 	}
 	
@@ -126,30 +143,40 @@ public class HMButton extends Button implements MenuComponent<HMButton> {
 		return this;
 	}
 	
-	public HMButton withNavigateTo(String link) {
-		navigateTo = link;
-		return this.withClickListener(e -> {
-			UI.getCurrent().getNavigator().navigateTo(link);
-		});
+	public HMButton withNavigateTo(String viewName) {
+		return withNavigateTo(viewName,null);
 	}
 	
-	public <T extends View> HMButton withNavigateTo(Class<T> viewClass) {
-		withNavigateTo(viewClass.getSimpleName(), viewClass);
+	public HMButton withNavigateTo(String viewName,String viewParameters) {
+		navigateTo = viewName;
+		navigateParameters = viewParameters;
+		removeClickListener();
+		clickListenerRegistration = super.addClickListener(e -> {
+			UI.getCurrent().getNavigator().navigateTo(navigateTo+(navigateParameters!=null?"/"+navigateParameters:""));
+		});
 		return this;
 	}
 	
-	public <T extends View> HMButton withNavigateTo(String viewName, Class<T> viewClass) {
+	public void removeClickListener() {
+		if(clickListenerRegistration != null) {
+			clickListenerRegistration.remove();
+			clickListenerRegistration = null;
+		}
+	}
+	
+	public <T extends View> HMButton withNavigateTo(Class<T> viewClass) {
+		withNavigateTo(viewClass.getSimpleName(), null);
+		return this;
+	}
+	
+	/*public <T extends View> HMButton withNavigateTo(String viewName, Class<T> viewClass) {
 		navigateTo = viewName;
 		
 		Navigator navigator = UI.getCurrent().getNavigator();
-		
-		navigator.removeView(viewName);
-		navigator.addView(viewName, viewClass);
-		
 		return this.withClickListener(e -> {
 			navigator.navigateTo(navigateTo);
 		});
-	}
+	}*/
 	
 	public HMButton updateToolTip() {
 		String toolTip = "";
@@ -208,6 +235,12 @@ public class HMButton extends Button implements MenuComponent<HMButton> {
 		return this;
 	}
 	
+	
+	
+	public String getNavigateParameters() {
+		return navigateParameters;
+	}
+
 	public boolean isActive() {
 		return getStyleName().contains("active");
 	}
@@ -234,7 +267,8 @@ public class HMButton extends Button implements MenuComponent<HMButton> {
 	
 	@Override
 	public <C extends MenuComponent<?>> C add(C c) {
-		return null;
+		content.addComponent(c);
+		return c;
 	}
 
 	@Override
@@ -259,6 +293,27 @@ public class HMButton extends Button implements MenuComponent<HMButton> {
 
 	@Override
 	public List<MenuComponent<?>> getList() {
-		return null;
+		List<MenuComponent<?>> menuComponentList = new ArrayList<MenuComponent<?>>();
+		for (int i = 0; i < content.getComponentCount(); i++) {
+			Component component = content.getComponent(i);
+			if (component instanceof MenuComponent<?>) {
+				menuComponentList.add((MenuComponent<?>) component);
+			}
+		}
+		return menuComponentList;
+	}
+	
+	public HMButton clone() {
+		HMButton clone = HMButton.get();
+		clone.withCaption(getCaption());
+		clone.withDescription(getDescription());
+		clone.withIcon(getIcon());
+		clone.withStyleName(getStyleName());
+		clone.withToolTip(getToolTip());
+		if(navigateTo != null) {
+			clone.withNavigateTo(getNavigateTo(), getNavigateParameters());
+		}
+		else clone.withClickListener(clickListener);
+		return clone;
 	}
 }

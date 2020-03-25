@@ -45,7 +45,7 @@ public class DesignUtils {
 	}
 	
 	public static String background(Color background, double alpha) {
-		return "background: " + colorToRGBA(background, alpha) + " !important;";
+		return "background: " + colorToRGBA(background, alpha) +";";
 	}
 	
 	public static String color(DesignColor color) {
@@ -61,7 +61,7 @@ public class DesignUtils {
 	}
 	
 	public static String color(Color color, double alpha) {
-		return "color: " + colorToRGBA(color, alpha) + " !important;";
+		return "color: " + colorToRGBA(color, alpha) +";";
 	}
 	
 	public static String border(DesignColor color, String position) {
@@ -77,7 +77,7 @@ public class DesignUtils {
 	}
 	
 	public static String border(Color color, String position, double alpha) {
-		return "border-" + position + "-" + color(color, alpha) + " !important;";
+		return "border-" + position + "-" + color(color, alpha) +";";
 	}
 	
 	public static Color hmColorDedect(DesignColor background) {

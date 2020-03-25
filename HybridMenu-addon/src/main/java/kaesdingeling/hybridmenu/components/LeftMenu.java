@@ -3,6 +3,9 @@ package kaesdingeling.hybridmenu.components;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.VerticalLayout;
@@ -12,6 +15,9 @@ import kaesdingeling.hybridmenu.data.interfaces.MenuComponent;
 import kaesdingeling.hybridmenu.utils.Utils;
 
 public class LeftMenu extends VerticalLayout implements MenuComponent<VerticalLayout> {
+	
+	protected static final Logger LOGGER = LoggerFactory.getLogger(LeftMenu.class);
+	
 	private static final long serialVersionUID = 8774849625123603883L;
 	
 	public static final String CLASS_NAME = "leftMenu";
@@ -20,14 +26,18 @@ public class LeftMenu extends VerticalLayout implements MenuComponent<VerticalLa
 	private VerticalLayout content = new VerticalLayout();
 	private HorizontalLayout footer = null;
 	*/
+	
+	String normalWidth = "225px";
+	String minimalWidth = "50px";
 
 	public LeftMenu() {
 		super();
-		setWidth(250, Unit.PIXELS);
+		setWidth(normalWidth);
 		setHeight(100, Unit.PERCENTAGE);
 		setStyleName(CLASS_NAME);
 		setMargin(false);
 		setSpacing(false);
+		LOGGER.info("LeftMenu()");
 		/*
 		content.setSizeFull();
 		content.setSpacing(false);
@@ -37,7 +47,35 @@ public class LeftMenu extends VerticalLayout implements MenuComponent<VerticalLa
 		*/
 	}
 	
+	
+	
+	public String getNormalWidth() {
+		return normalWidth;
+	}
+
+
+
+	public void setNormalWidth(String normalWidth) {
+		this.normalWidth = normalWidth;
+		this.setWidth(normalWidth);
+	}
+
+
+
+	public String getMinimalWidth() {
+		return minimalWidth;
+	}
+
+
+
+	public void setMinimalWidth(String minimalWidth) {
+		this.minimalWidth = minimalWidth;
+	}
+
+
+
 	public LeftMenu toggleSize() {
+		
 		if (getToggleMode().equals(ToggleMode.NORMAL)) {
 			setToggleMode(ToggleMode.MINIMAL);
 		} else {
@@ -50,11 +88,11 @@ public class LeftMenu extends VerticalLayout implements MenuComponent<VerticalLa
 		if (toggleMode != null) {
 			switch (toggleMode) {
 				case MINIMAL:
-					setWidth(50, Unit.PIXELS);
+					setWidth(minimalWidth);
 					getParent().addStyleName(ToggleMode.MINIMAL.name().toLowerCase());
 					break;
 				case NORMAL:
-					setWidth(250, Unit.PIXELS);
+					setWidth(normalWidth);
 					getParent().removeStyleName(ToggleMode.MINIMAL.name().toLowerCase());
 					break;
 			}
@@ -66,10 +104,22 @@ public class LeftMenu extends VerticalLayout implements MenuComponent<VerticalLa
 		return this;
 	}
 	
+	public void applyToggleMode() {
+		LOGGER.info("applyToggleMode: {}",getToggleMode());
+		ToggleMode toggleMode = getToggleMode();
+		setToggleMode(toggleMode);
+			
+
+	
+	}
+	
 	public ToggleMode getToggleMode() {
+		
 		VaadinSession session = VaadinSession.getCurrent();
+		LOGGER.info("gettogglemode session: {}"+session);
 		if (session != null) {
 			ToggleMode toggleMode = session.getAttribute(ToggleMode.class);
+			LOGGER.info("gettogglemode: {}"+toggleMode);
 			if (toggleMode != null) {
 				return toggleMode;
 			}

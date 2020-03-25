@@ -35,6 +35,8 @@ public class MenuConfig implements Serializable {
 	
 	private Resource breadcrumbSeperatorIcon = FontAwesome.ANGLE_RIGHT;
 	private boolean breadcrumbs = true;
+	private boolean breadcrumbClickCurrent = true;
+	private boolean breadcrumbShowIcon = false;
 	
 	public static int notificationQueueMax = 200;
 	
@@ -50,6 +52,17 @@ public class MenuConfig implements Serializable {
 	}
 	public MenuConfig withSubMenuIcon(FontIcon subMenuIcon) {
 		this.subMenuIcon = subMenuIcon;
+		return this;
+	}
+	
+	public boolean getBreadcrumbShowIcon() {
+		return breadcrumbShowIcon;
+	}
+	public boolean getBreadcrumbClickCurrent() {
+		return breadcrumbClickCurrent;
+	}
+	public MenuConfig withClickCurrentBreadcrumb(boolean clickCurrentBreadcrumb) {
+		this.breadcrumbClickCurrent = clickCurrentBreadcrumb;
 		return this;
 	}
 	public Resource getNotificationButtonIcon() {

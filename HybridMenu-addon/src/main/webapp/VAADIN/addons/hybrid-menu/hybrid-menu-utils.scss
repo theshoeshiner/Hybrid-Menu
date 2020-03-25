@@ -94,7 +94,7 @@
         $tooltip-active-background) {
     .topMenu .v-slot > div {
         @include hmBackgroundWithColor($menuLeft-background);
-        border-top-color: $tooltip-background !important;
+        border-top-color: $tooltip-background ;
         
         &:hover {
             @include hmBackgroundWithColor($button-hover-background);
@@ -112,14 +112,14 @@
             background: $menuLeft-background;
 
             .v-slot-HMLabel > div .v-caption:after {
-                border-bottom-color: rgba(hmColorDedect($menuLeft-background), 0.25) !important;
+                border-bottom-color: rgba(hmColorDedect($menuLeft-background), 0.25);
             }
             
             .HMButton {
-                border-left-color: $tooltip-background !important;
+                border-left-color: $tooltip-background ;
 
                 &.active {
-                    border-left-color: $tooltip-active-background !important;
+                    border-left-color: $tooltip-active-background ;
                     @include hmBackgroundWithColor($button-active-background);
                 }
 
@@ -129,7 +129,7 @@
             }
 
             .HMSubMenu > .v-slot:last-child > .v-verticallayout {
-                border-left-color: rgba(hmColorDedect($menuLeft-background), 0.25) !important;
+                border-left-color: rgba(hmColorDedect($menuLeft-background), 0.25) ;
             }
         }
 
