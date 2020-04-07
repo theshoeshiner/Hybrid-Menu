@@ -25,6 +25,7 @@ public class HMButton extends Button implements MenuComponent<HMButton> {
 	private List<MenuComponent<?>> subComponentList = new ArrayList<>();
 	private VerticalLayout content = new VerticalLayout();
 	private Boolean root;
+	private Boolean overrideBreadcrumb = false;
 	
 	public static HMButton get() {
 		return new HMButton("");
@@ -128,6 +129,11 @@ public class HMButton extends Button implements MenuComponent<HMButton> {
 	
 	public HMButton asRoot(boolean r) {
 		this.root = r;
+		return this;
+	}
+	
+	public HMButton withOverrideBreadcrumb(Boolean r) {
+		this.overrideBreadcrumb =  r;
 		return this;
 	}
 	
@@ -260,6 +266,11 @@ public class HMButton extends Button implements MenuComponent<HMButton> {
 		return navigateTo;
 	}
 	
+
+	public Boolean getOverrideBreadcrumb() {
+		return overrideBreadcrumb;
+	}
+
 	@Override
 	public String getRootStyle() {
 		return this.getClass().getSimpleName();
@@ -310,6 +321,7 @@ public class HMButton extends Button implements MenuComponent<HMButton> {
 		clone.withIcon(getIcon());
 		clone.withStyleName(getStyleName());
 		clone.withToolTip(getToolTip());
+		clone.withOverrideBreadcrumb(overrideBreadcrumb);
 		if(navigateTo != null) {
 			clone.withNavigateTo(getNavigateTo(), getNavigateParameters());
 		}

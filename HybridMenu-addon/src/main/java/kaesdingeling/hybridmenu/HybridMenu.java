@@ -87,17 +87,13 @@ public class HybridMenu extends VerticalLayout {
 					private static final long serialVersionUID = 5012642635022164196L;
 					@Override
 					public boolean beforeViewChange(ViewChangeEvent event) {
-						//TODO we moved this here so that views could update the breadcrumb text
-						//But this may create problems if another listener stops the change
-						List<MenuComponent<?>> menuContentList = viewChangeManager.init(HybridMenu.this);
-						viewChangeManager.manage(HybridMenu.this, leftMenu, event, menuContentList);
-						viewChangeManager.finish(HybridMenu.this, menuContentList);
 						return true;
 					}
 					@Override
 					public void afterViewChange(ViewChangeEvent event) {
-						//TODO 
-						
+						List<MenuComponent<?>> menuContentList = viewChangeManager.init(HybridMenu.this);
+						viewChangeManager.manage(HybridMenu.this, leftMenu, event, menuContentList);
+						viewChangeManager.finish(HybridMenu.this, menuContentList);
 					}
 				});
 			}

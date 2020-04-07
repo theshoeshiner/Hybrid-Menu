@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 
 import kaesdingeling.hybridmenu.HybridMenu;
@@ -15,6 +16,7 @@ import kaesdingeling.hybridmenu.components.HMButton;
 import kaesdingeling.hybridmenu.components.HMLabel;
 import kaesdingeling.hybridmenu.components.HMSubMenu;
 import kaesdingeling.hybridmenu.components.LeftMenu;
+import kaesdingeling.hybridmenu.data.interfaces.BreadcrumbProvider;
 import kaesdingeling.hybridmenu.data.interfaces.MenuComponent;
 import kaesdingeling.hybridmenu.data.interfaces.ViewChangeManager;
 
@@ -34,30 +36,24 @@ public class DefaultViewChangeManager implements ViewChangeManager, Serializable
 	
 	public boolean manage(HybridMenu hybridMenu, MenuComponent<?> menuComponent, ViewChangeEvent event, List<MenuComponent<?>> menuContentList) {
 		
+		View newView = event.getNewView();
 		
 		LOGGER.debug("manage: {} {}",menuComponent,menuComponent.getCaption());
 		boolean foundActiveButton = false;
 		if (menuComponent != null) {
 			if (menuComponent instanceof HMButton) {
-				LOGGER.debug("checking button: {}",((HMButton)menuComponent).getCaption());
 				if (checkButton((HMButton) menuComponent, event)) {
-					LOGGER.debug("found the button");
-					//TODO if event has params
-					
-					
-					//HMButton bc = HMButton.get().withCaption(menuComponent.getCaption());
+					LOGGER.trace("found the button");
+					//TODO if event has params?
 					HMButton bc = ((HMButton) menuComponent).clone();
+					if(bc.getOverrideBreadcrumb() && newView instanceof BreadcrumbProvider) {
+						bc.setCaption(((BreadcrumbProvider)newView).getBreadcrumb());
+					}
 					if(!hybridMenu.getConfig().getBreadcrumbClickCurrent()) {
-						//bc.withStyleName("clickable");
 						bc.removeStyleName("clickable");
 						bc.removeClickListener();
 					}
 					if(!hybridMenu.getConfig().getBreadcrumbShowIcon())bc.withIcon(null);
-					
-					/*else {
-						bc.removeStyleName("clickable");
-						bc.removeClickListener();
-					}*/
 					
 					add(hybridMenu, bc, menuContentList);
 					foundActiveButton = true;
@@ -74,15 +70,15 @@ public class DefaultViewChangeManager implements ViewChangeManager, Serializable
 				
 				
 			}
+			
+			//check all sub items of this item
 			if (!foundActiveButton && (menuComponent instanceof LeftMenu || menuComponent instanceof HMSubMenu || menuComponent instanceof HMButton)) {
 				
-				
-				//LOGGER.debug("checking sub items");
 				List<MenuComponent<?>> cacheMenuContentList = new ArrayList<MenuComponent<?>>();
 				List<MenuComponent<?>> sub = menuComponent.getList();
 				
 				for (MenuComponent<?> cacheMenuComponent : sub) {
-					LOGGER.debug("checking sub item: {}",cacheMenuComponent.getCaption());
+					LOGGER.trace("checking sub item: {}",cacheMenuComponent.getCaption());
 					if (manage(hybridMenu, cacheMenuComponent, event, cacheMenuContentList)) {
 						foundActiveButton = true;
 					}
@@ -90,7 +86,7 @@ public class DefaultViewChangeManager implements ViewChangeManager, Serializable
 				
 				if (menuComponent instanceof HMButton && sub.size()>0) {
 					HMButton hmSubMenu = (HMButton) menuComponent;
-					LOGGER.debug("checking HMButton: {}",menuComponent.getCaption());
+					LOGGER.trace("checking HMButton: {}",menuComponent.getCaption());
 					if (foundActiveButton ) {
 						
 						HMButton breadCrumButton = hmSubMenu.clone();
@@ -110,7 +106,7 @@ public class DefaultViewChangeManager implements ViewChangeManager, Serializable
 				
 				if (menuComponent instanceof HMSubMenu) {
 					HMSubMenu hmSubMenu = (HMSubMenu) menuComponent;
-					LOGGER.debug("checking hmSubMenu: {}",menuComponent.getCaption());
+					LOGGER.trace("checking hmSubMenu: {}",menuComponent.getCaption());
 					if (foundActiveButton || checkSubView(hmSubMenu, event)) {
 						
 						HMButton breadCrumButton = HMButton.get().withCaption(hmSubMenu.getCaption());
