@@ -15,7 +15,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         
         <!-- Vaadin -->
-        <vaadin.version>13.0.3</vaadin.version>
+        <vaadin.version>14.6.8</vaadin.version>
 		
 		<!-- Servlet -->
 		<servlet.api.version>4.0.1</servlet.api.version>
